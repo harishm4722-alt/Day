@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="GroMart grocery and fresh meat delivery marketplace" />
+    <title>GroMart | Fresh groceries, delivered</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="announcement"><span class="pulse"></span> Same-day delivery on orders over $35 <button id="closeAnnouncement" aria-label="Close announcement">&times;</button></div>
+    <header class="site-header">
+      <a class="brand" href="#home" aria-label="GroMart home"><span class="brand-mark">+</span><span>gro<span>mart</span></span></a>
+      <div class="location"><span class="pin">⌖</span><div><small>Deliver to</small><strong>Brooklyn, NY 11201</strong></div><span class="chevron">⌄</span></div>
+      <label class="search"><span>⌕</span><input id="searchInput" type="search" placeholder="Search produce, meat, pantry..." /><kbd>/</kbd></label>
+      <nav class="header-actions"><button class="icon-button login-trigger" aria-label="Open account">♙<span>Account</span></button><button class="cart-button" id="cartButton"><span class="cart-icon">▱</span><span>Cart</span><b id="cartCount">0</b></button></nav>
+    </header>
+    <main>
+      <section class="hero" id="home">
+        <div class="hero-copy"><p class="eyebrow">THE GOOD STUFF, JUST AROUND THE CORNER</p><h1>Good food<br /><em>starts here.</em></h1><p class="hero-text">Hand-picked groceries and butcher-quality cuts, brought to your door while they are still at their best.</p><div class="hero-actions"><a class="primary-button" href="#shop">Shop fresh picks <span>→</span></a><button class="text-button" id="howItWorks">How it works <span>↗</span></button></div><div class="hero-proof"><div class="avatar-stack"><i>J</i><i>M</i><i>A</i><i>+</i></div><span><strong>4.9/5</strong> from 2,000+ happy neighbors</span></div></div>
+        <div class="hero-art"><div class="art-label">THIS WEEK'S<br /><strong>FRESHEST</strong><br />ARRIVALS</div><div class="produce produce-one">🍅</div><div class="produce produce-two">🥬</div><div class="produce produce-three">🥩</div><div class="produce produce-four">🍊</div><div class="art-sticker">picked<br /><strong>today</strong></div></div>
+      </section>
+      <section class="category-strip" id="shop"><div class="section-heading"><div><p class="eyebrow green">SHOP BY DEPARTMENT</p><h2>Fill your basket with <em>better.</em></h2></div><button class="text-button" id="viewAll">View all <span>→</span></button></div><div class="category-grid"><button class="category active" data-category="all"><span>✦</span><strong>All fresh picks</strong><small>Everything good</small></button><button class="category" data-category="produce"><span>🥦</span><strong>Fruit & veg</strong><small>From the farm</small></button><button class="category" data-category="meat"><span>🥩</span><strong>Fresh meat</strong><small>Butcher's counter</small></button><button class="category" data-category="pantry"><span>🫙</span><strong>Pantry staples</strong><small>Everyday essentials</small></button><button class="category" data-category="dairy"><span>🥛</span><strong>Dairy & eggs</strong><small>Farm favorites</small></button></div></section>
+      <section class="products-section"><div class="product-heading"><div><span class="live-dot"></span><span id="productTitle">Popular this week</span></div><div class="sort">Sort by <select id="sortSelect"><option value="popular">Popular</option><option value="price-low">Price: low to high</option><option value="price-high">Price: high to low</option></select></div></div><div class="product-grid" id="productGrid"></div></section>
+      <section class="service-banner"><div class="service-icon">✓</div><div><strong>Quality you can taste, service you can trust.</strong><span>Every order is checked by our team before it leaves the store.</span></div><div class="service-stats"><span><b>30 min</b><small>average delivery</small></span><span><b>100%</b><small>freshness promise</small></span></div></section>
+    </main>
+    <div class="drawer-backdrop" id="drawerBackdrop"></div><aside class="cart-drawer" id="cartDrawer"><div class="drawer-header"><div><p class="eyebrow green">YOUR ORDER</p><h2>Your basket</h2></div><button class="close-button" id="closeCart">&times;</button></div><div class="cart-items" id="cartItems"></div><div class="cart-empty" id="cartEmpty"><span>🛒</span><strong>Your basket is waiting</strong><p>Add something fresh and delicious.</p></div><div class="cart-summary" id="cartSummary"><div><span>Subtotal</span><strong id="subtotal">$0.00</strong></div><div><span>Delivery</span><strong>Free</strong></div><div class="total"><span>Total</span><strong id="total">$0.00</strong></div><button class="primary-button checkout-button" id="checkout">Continue to checkout <span>→</span></button></div></aside>
+    <div class="modal-backdrop" id="modalBackdrop"><section class="login-modal" role="dialog" aria-modal="true" aria-labelledby="loginTitle"><button class="close-button" id="closeLogin">&times;</button><p class="eyebrow green">WELCOME TO GROMART</p><h2 id="loginTitle">Sign in to your<br /><em>fresh account.</em></h2><div class="role-tabs"><button class="role-tab active" data-role="customer">Customer</button><button class="role-tab" data-role="delivery">Delivery partner</button><button class="role-tab" data-role="vendor">Vendor</button></div><div class="role-note" id="roleNote">Shop fresh food and track your deliveries.</div><form id="loginForm"><label>Email address<input type="email" placeholder="you@example.com" required /></label><label>Password<input type="password" placeholder="••••••••" required /></label><button class="primary-button full-width" type="submit">Sign in <span>→</span></button></form><p class="form-foot">New here? <a href="#signup">Create an account</a></p></section></div>
+    <div class="toast" id="toast" role="status"></div><script src="app.js"></script>
+  </body>
+</html>
