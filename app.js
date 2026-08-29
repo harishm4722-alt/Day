@@ -1,68 +1,241 @@
-const products = [
-  { id: 1, name: 'Heirloom tomatoes', meta: '1 lb basket · Local farm', price: 4.99, category: 'produce', emoji: '🍅', tag: 'In season' },
-  { id: 2, name: 'Grass-fed ribeye', meta: '12 oz raw cut · Butcher select', price: 16.5, category: 'meat', emoji: '🥩', image: 'https://images.unsplash.com/photo-1588168333986-5078d3ae3976?auto=format&fit=crop&w=700&q=85', tag: 'Raw butcher cut' },
-  { id: 9, name: 'Tender mutton curry cut', meta: '1 lb pack · Farm raised', price: 13.99, category: 'meat', emoji: '🍖', image: 'https://images.unsplash.com/photo-1603048297172-c92544798d5a?auto=format&fit=crop&w=700&q=85', tag: 'New cut' },
-  { id: 3, name: 'Baby spinach', meta: '5 oz bag · Organic', price: 3.49, category: 'produce', emoji: '🥬', tag: 'Organic' },
-  { id: 4, name: 'Sourdough loaf', meta: '24 oz · Baked today', price: 6.25, category: 'pantry', emoji: '🍞', tag: 'Baked today' },
-  { id: 5, name: 'Free-range eggs', meta: 'Dozen · Grade A', price: 5.49, category: 'dairy', emoji: '🥚', tag: 'Farm fresh' },
-  { id: 6, name: 'Chicken thighs', meta: '2 lb raw pack · Antibiotic-free', price: 9.75, category: 'meat', emoji: '🍗', image: 'https://images.unsplash.com/photo-1604503468506-a8da13d82791?auto=format&fit=crop&w=700&q=85', tag: 'Raw fresh cut' },
-  { id: 7, name: 'Cara cara oranges', meta: '3 lb bag · Sweet & bright', price: 7.99, category: 'produce', emoji: '🍊', tag: 'Staff favorite' },
-  { id: 8, name: 'Creamy oat milk', meta: '64 fl oz · Barista blend', price: 4.79, category: 'dairy', emoji: '🥛', tag: 'Popular' }
-];
-let cart = JSON.parse(localStorage.getItem('gromart') || '{}');
-let selectedCategory = 'all';
-let selectedRole = 'customer';
-const $ = (selector) => document.querySelector(selector);
-const money = (value) => `$${value.toFixed(2)}`;
+const users = {
+  admin: {
+    email: 'admin@velora.com',
+    password: 'admin123',
+    role: 'admin',
+    name: 'Alicia Singh',
+    dashboardTitle: 'Admin dashboard'
+  },
+  user: {
+    email: 'user@velora.com',
+    password: 'user123',
+    role: 'user',
+    name: 'Mia Johnson',
+    dashboardTitle: 'User dashboard'
+  },
+  delivery: {
+    email: 'delivery@velora.com',
+    password: 'delivery123',
+    role: 'delivery',
+    name: 'Rafael Chen',
+    dashboardTitle: 'Delivery dashboard'
+  }
+};
 
-function visibleProducts() {
-  const query = $('#searchInput').value.toLowerCase().trim();
-  const sort = $('#sortSelect').value;
-  let result = products.filter((product) => selectedCategory === 'all' || product.category === selectedCategory);
-  if (query) result = result.filter((product) => `${product.name} ${product.meta} ${product.category}`.toLowerCase().includes(query));
-  if (sort === 'price-low') result.sort((a, b) => a.price - b.price);
-  if (sort === 'price-high') result.sort((a, b) => b.price - a.price);
-  return result;
-}
+const productCatalog = [
+  { name: 'Rosalyn Formal Gown', price: 129, oldPrice: 169, tag: 'Formal', accent: 'pink', category: 'Formal wear', collection: 'Formal collection' },
+  { name: 'Aurora Traditional Maxi', price: 98, oldPrice: 132, tag: 'Classic', accent: 'blue', category: 'Traditional', collection: 'Traditional collection' },
+  { name: 'Luna Satin Evening', price: 118, oldPrice: 150, tag: 'Popular', accent: 'pink', category: 'Formal wear', collection: 'Formal collection' },
+  { name: 'Noor Festive Kurta', price: 87, oldPrice: 112, tag: 'Hot', accent: 'blue', category: 'Traditional', collection: 'Traditional collection' },
+  { name: 'Sapphire Party Midi', price: 104, oldPrice: 138, tag: 'Best', accent: 'blue', category: 'Formal wear', collection: 'Party collection' },
+  { name: 'Blush Bridal Lehenga', price: 142, oldPrice: 178, tag: 'Luxury', accent: 'pink', category: 'Traditional', collection: 'Bridal collection' },
+  { name: 'Celeste Cocktail Dress', price: 115, oldPrice: 148, tag: 'Trend', accent: 'blue', category: 'Party wear', collection: 'Cocktail collection' },
+  { name: 'Ivory Evening Flare', price: 132, oldPrice: 170, tag: 'Elite', accent: 'pink', category: 'Evening wear', collection: 'Evening collection' },
+  { name: 'Aanya Summer Dress', price: 89, oldPrice: 120, tag: 'Fresh', accent: 'blue', category: 'Casual wear', collection: 'Summer collection' },
+  { name: 'Nadia Wedding Saree Gown', price: 156, oldPrice: 205, tag: 'Royal', accent: 'pink', category: 'Bridal wear', collection: 'Bridal collection' },
+  { name: 'Mira Ethnic Wrap', price: 96, oldPrice: 126, tag: 'Classic', accent: 'blue', category: 'Traditional', collection: 'Traditional collection' },
+  { name: 'Daphne Dinner Dress', price: 124, oldPrice: 162, tag: 'New', accent: 'pink', category: 'Formal wear', collection: 'Evening collection' }
+];
+
+const collections = [
+  { title: 'Formal collection', subtitle: 'Elegant office and evening essentials', group: 'Formal collection' },
+  { title: 'Traditional collection', subtitle: 'Classic heritage-inspired silhouettes', group: 'Traditional collection' },
+  { title: 'Party collection', subtitle: 'Statement looks for events and celebration', group: 'Party collection' },
+  { title: 'Bridal collection', subtitle: 'Luxury dresses for unforgettable moments', group: 'Bridal collection' },
+  { title: 'Cocktail collection', subtitle: 'Modern mini and flare silhouettes', group: 'Cocktail collection' },
+  { title: 'Evening collection', subtitle: 'Chic dresses for dinners and receptions', group: 'Evening collection' },
+  { title: 'Summer collection', subtitle: 'Light, breezy outfits for sunny days', group: 'Summer collection' }
+];
+
+const dashboardConfig = {
+  admin: {
+    summary: [
+      { label: 'Revenue', value: '$34.8K' },
+      { label: 'Orders', value: '1,248' },
+      { label: 'Returns', value: '18' }
+    ],
+    activity: [
+      ['New stock arrived', 'Today'],
+      ['High demand for bridal gowns', '2h ago'],
+      ['Delivery routing updated', 'This morning']
+    ]
+  },
+  user: {
+    summary: [
+      { label: 'Saved items', value: '12' },
+      { label: 'Orders', value: '4' },
+      { label: 'Points', value: '890' }
+    ],
+    activity: [
+      ['Pink satin dress added to cart', 'Just now'],
+      ['Order #V1842 shipped', 'Yesterday'],
+      ['Free delivery coupon unlocked', '3 days ago']
+    ]
+  },
+  delivery: {
+    summary: [
+      { label: 'Trips', value: '16' },
+      { label: 'On route', value: '5' },
+      { label: 'Earnings', value: '$620' }
+    ],
+    activity: [
+      ['Route to North Avenue updated', 'Just now'],
+      ['Parcel delivered to 24 Park Road', '1h ago'],
+      ['Pickup scheduled for 6:30 PM', 'Today']
+    ]
+  }
+};
+
+const roleButtons = document.querySelectorAll('.role-btn');
+const loginForm = document.getElementById('loginForm');
+const emailInput = document.getElementById('emailInput');
+const passwordInput = document.getElementById('passwordInput');
+const demoText = document.getElementById('demoText');
+const dashboardPanel = document.getElementById('dashboardPanel');
+const dashboardTitle = document.getElementById('dashboardTitle');
+const summaryGrid = document.getElementById('summaryGrid');
+const activityList = document.getElementById('activityList');
+const logoutBtn = document.getElementById('logoutBtn');
+const headerLoginBtn = document.getElementById('headerLoginBtn');
+const productGrid = document.getElementById('productGrid');
+const browseProductsBtn = document.getElementById('browseProductsBtn');
+
+let activeRole = 'admin';
 
 function renderProducts() {
-  const grid = $('#productGrid');
-  const items = visibleProducts();
-  grid.innerHTML = items.length ? items.map((product, index) => { const details = product.meta.split(' · '); return `<article class="product-card" style="animation-delay:${index * 45}ms"><div class="product-photo ${product.category}"><span class="product-tag">${product.tag}</span>${product.image ? `<img src="${product.image}" alt="Fresh ${product.name}" style="width:100%;height:100%;object-fit:cover;display:block" onerror="this.hidden=true;this.nextElementSibling.hidden=false" /><span hidden>${product.emoji}</span>` : `<span>${product.emoji}</span>`}</div><div class="product-info"><h3>${product.name}</h3><p class="product-meta"><strong style="color:var(--green);font-weight:700">${details[0]}</strong>${details.slice(1).length ? ` · ${details.slice(1).join(' · ')}` : ''}</p><div class="product-bottom"><span class="price">${money(product.price)} <small>/ item</small></span><button class="add-button" data-add="${product.id}" aria-label="Add ${product.name} to cart">+</button></div></div></article>`; }).join('') : '<p class="no-results">No fresh picks found. Try another search.</p>';
-  $('#productTitle').textContent = selectedCategory === 'all' ? 'Popular this week' : `${selectedCategory[0].toUpperCase()}${selectedCategory.slice(1)} picks`;
+  productGrid.innerHTML = collections
+    .map(
+      (collection) => {
+        const items = productCatalog.filter((product) => product.collection === collection.group);
+
+        return `
+          <div class="collection-panel">
+            <div class="collection-header">
+              <div>
+                <p class="eyebrow small">Collection</p>
+                <h3>${collection.title}</h3>
+              </div>
+              <span>${collection.subtitle}</span>
+            </div>
+            <div class="collection-grid">
+              ${items
+                .map(
+                  (product) => `
+                    <article class="product-card">
+                      <div class="product-media" style="background: linear-gradient(135deg, ${product.accent === 'pink' ? '#ffe8f5' : '#e2f2ff'}, ${product.accent === 'pink' ? '#f8ddf1' : '#d9ebff'});">
+                        <span class="sale-tag">${product.tag}</span>
+                      </div>
+                      <div class="product-info">
+                        <div class="product-meta">
+                          <span>${product.category}</span>
+                          <span>In stock</span>
+                        </div>
+                        <h3>${product.name}</h3>
+                        <div class="product-price-row">
+                          <div>
+                            <span class="price">$${product.price}</span>
+                            <span class="old-price">$${product.oldPrice}</span>
+                          </div>
+                          <button class="add-btn" type="button">Add</button>
+                        </div>
+                      </div>
+                    </article>
+                  `
+                )
+                .join('')}
+            </div>
+          </div>
+        `;
+      }
+    )
+    .join('');
 }
 
-function cartEntries() { return Object.entries(cart).filter(([, quantity]) => quantity > 0).map(([id, quantity]) => ({ product: products.find((product) => product.id === Number(id)), quantity })); }
-function renderCart() {
-  const entries = cartEntries();
-  const count = entries.reduce((sum, entry) => sum + entry.quantity, 0);
-  const subtotal = entries.reduce((sum, entry) => sum + entry.product.price * entry.quantity, 0);
-  $('#cartCount').textContent = count;
-  $('#cartItems').innerHTML = entries.map(({ product, quantity }) => `<div class="cart-line"><div class="cart-line-photo">${product.emoji}</div><div class="cart-line-info"><strong>${product.name}</strong><small>${money(product.price)} each</small></div><div class="qty"><button data-quantity="${product.id}" data-change="-1">−</button><span>${quantity}</span><button data-quantity="${product.id}" data-change="1">+</button></div></div>`).join('');
-  $('#cartEmpty').style.display = entries.length ? 'none' : 'block';
-  $('#cartSummary').style.display = entries.length ? 'block' : 'none';
-  $('#subtotal').textContent = money(subtotal);
-  $('#total').textContent = money(subtotal);
-  localStorage.setItem('gromart', JSON.stringify(cart));
-}
-function showToast(message) { const toast = $('#toast'); toast.textContent = message; toast.classList.add('show'); setTimeout(() => toast.classList.remove('show'), 2200); }
-function setCartOpen(open) { $('#cartDrawer').classList.toggle('open', open); $('#drawerBackdrop').classList.toggle('open', open); }
-function setLoginOpen(open) { $('#modalBackdrop').classList.toggle('open', open); }
+function setActiveRole(role) {
+  activeRole = role;
+  roleButtons.forEach((button) => {
+    const isActive = button.dataset.role === role;
+    button.classList.toggle('active', isActive);
+  });
 
-document.addEventListener('click', (event) => {
-  const add = event.target.closest('[data-add]');
-  if (add) { const id = add.dataset.add; cart[id] = (cart[id] || 0) + 1; renderCart(); showToast(`${products.find((product) => product.id === Number(id)).name} added to your basket`); }
-  const quantity = event.target.closest('[data-quantity]');
-  if (quantity) { const id = quantity.dataset.quantity; cart[id] = (cart[id] || 0) + Number(quantity.dataset.change); if (cart[id] <= 0) delete cart[id]; renderCart(); }
-  const category = event.target.closest('[data-category]');
-  if (category) { selectedCategory = category.dataset.category; document.querySelectorAll('.category').forEach((button) => button.classList.toggle('active', button === category)); renderProducts(); }
-  const role = event.target.closest('[data-role]');
-  if (role) { selectedRole = role.dataset.role; document.querySelectorAll('.role-tab').forEach((button) => button.classList.toggle('active', button === role)); const notes = { customer: 'Shop fresh food and track your deliveries.', delivery: 'Manage your route and earn with every delivery.', vendor: 'List your products and grow your local store.' }; const headings = { customer: 'Sign in to your<br /><em>fresh account.</em>', delivery: 'Get moving with<br /><em>GroMart delivery.</em>', vendor: 'Grow your store with<br /><em>GroMart.</em>' }; $('#roleNote').textContent = notes[selectedRole]; $('#loginTitle').innerHTML = headings[selectedRole]; }
+  const selectedUser = users[role];
+  emailInput.value = selectedUser.email;
+  passwordInput.value = selectedUser.password;
+  demoText.textContent = `Demo ${role} login: ${selectedUser.email} / ${selectedUser.password}`;
+}
+
+function renderDashboard(role) {
+  const config = dashboardConfig[role];
+  dashboardTitle.textContent = users[role].dashboardTitle;
+
+  summaryGrid.innerHTML = config.summary
+    .map(
+      (item) => `
+        <div class="summary-card">
+          <span>${item.label}</span>
+          <strong>${item.value}</strong>
+        </div>
+      `
+    )
+    .join('');
+
+  activityList.innerHTML = config.activity
+    .map(
+      ([text, time]) => `
+        <li>
+          <span>${text}</span>
+          <strong>${time}</strong>
+        </li>
+      `
+    )
+    .join('');
+
+  dashboardPanel.classList.remove('hidden');
+}
+
+function hideDashboard() {
+  dashboardPanel.classList.add('hidden');
+}
+
+function handleLogin(event) {
+  event.preventDefault();
+
+  const enteredEmail = emailInput.value.trim().toLowerCase();
+  const enteredPassword = passwordInput.value.trim();
+
+  const matchedUser = Object.values(users).find(
+    (user) => user.email.toLowerCase() === enteredEmail && user.password === enteredPassword
+  );
+
+  if (!matchedUser) {
+    alert('Invalid login details. Please use the correct demo credentials for the selected role.');
+    return;
+  }
+
+  renderDashboard(matchedUser.role);
+  const dashboardHeading = document.getElementById('dashboardTitle');
+  dashboardHeading.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function logout() {
+  hideDashboard();
+  emailInput.value = users[activeRole].email;
+  passwordInput.value = users[activeRole].password;
+}
+
+roleButtons.forEach((button) => {
+  button.addEventListener('click', () => setActiveRole(button.dataset.role));
 });
-$('#cartButton').addEventListener('click', () => setCartOpen(true)); $('#closeCart').addEventListener('click', () => setCartOpen(false)); $('#drawerBackdrop').addEventListener('click', () => setCartOpen(false));
-$('.login-trigger').addEventListener('click', () => setLoginOpen(true)); $('#closeLogin').addEventListener('click', () => setLoginOpen(false)); $('#modalBackdrop').addEventListener('click', (event) => { if (event.target === $('#modalBackdrop')) setLoginOpen(false); });
-$('#searchInput').addEventListener('input', renderProducts); $('#sortSelect').addEventListener('change', renderProducts); $('#closeAnnouncement').addEventListener('click', () => $('.announcement').remove());
-$('#howItWorks').addEventListener('click', () => showToast('We pick, pack, and deliver in three simple steps.'));
-$('#checkout').addEventListener('click', () => showToast('Checkout is ready for your fresh order.'));
-$('#loginForm').addEventListener('submit', (event) => { event.preventDefault(); setLoginOpen(false); const messages = { customer: 'Welcome back to GroMart.', delivery: 'Your delivery dashboard is ready.', vendor: 'Your GroMart store is ready.' }; showToast(messages[selectedRole]); });
-renderProducts(); renderCart();
+
+loginForm.addEventListener('submit', handleLogin);
+logoutBtn.addEventListener('click', logout);
+headerLoginBtn.addEventListener('click', () => {
+  document.getElementById('login').scrollIntoView({ behavior: 'smooth' });
+});
+browseProductsBtn.addEventListener('click', () => {
+  document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
+});
+
+renderProducts();
+setActiveRole(activeRole);
+hideDashboard();
