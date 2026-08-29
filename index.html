@@ -3,181 +3,28 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Lifo Dress</title>
+    <title>Day Mark | Daily expenses</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div class="page-shell">
+    <div class="app-shell">
       <header class="topbar">
-        <div class="brand-wrap">
-          <div class="brand-mark">V</div>
-          <div>
-            <p class="brand-name">Lifo Dress</p>
-            <p class="brand-tag">Dress Boutique</p>
-          </div>
-        </div>
-
-        <nav class="nav-links" aria-label="Main navigation">
-          <a href="#home">Home</a>
-          <a href="#products">Collection</a>
-          <a href="#delivery">Delivery</a>
-          <a href="#login">Login</a>
-        </nav>
-
-        <button class="cta small" id="headerLoginBtn">Login</button>
+        <a class="brand" href="#overview" aria-label="Day Mark home"><span class="brand-mark">D</span><span><strong>Day Mark</strong><small>personal finance</small></span></a>
+        <nav class="nav-links" aria-label="Main navigation"><a class="active" href="#overview">Overview</a><a href="#transactions">Transactions</a><a href="#insights">Insights</a></nav>
+        <div class="user-menu"><label class="profile-photo" title="Upload profile photo"><span class="avatar" id="userAvatar">H</span><input id="profilePhotoInput" type="file" accept="image/*" aria-label="Upload profile photo" /></label><span class="user-name" id="userName">Harish</span><button class="icon-button" id="logoutBtn" aria-label="Log out" title="Log out">↗</button></div>
       </header>
-
-      <main>
-        <section class="hero" id="home">
-          <div class="hero-copy">
-            <p class="eyebrow">New season • limited stock</p>
-            <h1>Elegant dresses for every celebration.</h1>
-            <p class="subtitle">
-              Discover trending partywear, office chic, and bridal outfits with fast delivery and secure shopping.
-            </p>
-
-            <div class="hero-actions">
-              <a href="#products" class="cta primary">Shop now</a>
-              <a href="#delivery" class="cta secondary">Track delivery</a>
-            </div>
-
-            <div class="hero-stats">
-              <div>
-                <strong>25k+</strong>
-                <span>happy shoppers</span>
-              </div>
-              <div>
-                <strong>4.9/5</strong>
-                <span>customer rating</span>
-              </div>
-              <div>
-                <strong>48h</strong>
-                <span>dispatch time</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="hero-visual" aria-label="Featured dress collection">
-            <div class="floating-card card-one">
-              <span class="pill">Trending</span>
-              <h3>Rose Glow</h3>
-              <p>Silk satin evening dress</p>
-              <strong>$89</strong>
-            </div>
-
-            <div class="dress-showcase">
-              <div class="dress-outline"></div>
-              <div class="dress-outline glow"></div>
-            </div>
-
-            <div class="floating-card card-two">
-              <span class="mini-label">Fast delivery</span>
-              <p>Same-day dispatch in 6 cities</p>
-            </div>
-          </div>
-        </section>
-
-        <section class="catalog" id="products">
-          <div class="section-heading">
-            <div>
-              <p class="eyebrow">Featured collection</p>
-              <h2>Dress picks for every mood</h2>
-            </div>
-            <button class="cta small ghost" id="browseProductsBtn">Browse all</button>
-          </div>
-
-          <div class="product-grid" id="productGrid"></div>
-        </section>
-
-        <section class="delivery-section" id="delivery">
-          <div class="section-heading compact">
-            <div>
-              <p class="eyebrow">Delivery promise</p>
-              <h2>Comfortable and secure shipping</h2>
-            </div>
-          </div>
-
-          <div class="delivery-grid">
-            <div class="delivery-card">
-              <span class="icon">🚚</span>
-              <h3>Same-day dispatch</h3>
-              <p>Orders placed before 3 PM are packed and sent within the same day.</p>
-            </div>
-            <div class="delivery-card">
-              <span class="icon">📦</span>
-              <h3>Tracked delivery</h3>
-              <p>Every order includes live tracking and SMS updates from warehouse to doorstep.</p>
-            </div>
-            <div class="delivery-card">
-              <span class="icon">🔒</span>
-              <h3>Verified service</h3>
-              <p>Secure packaging and trusted delivery professionals for all orders.</p>
-            </div>
-          </div>
-        </section>
-
-        <section class="login-section" id="login">
-          <div class="login-shell">
-            <div class="auth-panel">
-              <div class="auth-head">
-                <p class="eyebrow">Member access</p>
-                <h2>Log in to continue</h2>
-              </div>
-
-              <div class="role-switcher" aria-label="Login role selector">
-                <button class="role-btn active" data-role="admin">Admin</button>
-                <button class="role-btn" data-role="user">User</button>
-                <button class="role-btn" data-role="delivery">Delivery</button>
-              </div>
-
-              <form id="loginForm" class="login-form">
-                <label>
-                  <span>Email</span>
-                  <input id="emailInput" type="email" value="admin@velora.com" required />
-                </label>
-
-                <label>
-                  <span>Password</span>
-                  <input id="passwordInput" type="password" value="admin123" required />
-                </label>
-
-                <button type="submit" class="cta primary full-width">Sign in</button>
-              </form>
-
-              <p id="demoText" class="demo-text">
-                Demo admin login: admin@velora.com / admin123
-              </p>
-            </div>
-
-            <div class="dashboard-panel" id="dashboardPanel" aria-live="polite">
-              <div class="dashboard-header">
-                <div>
-                  <p class="eyebrow">Portal</p>
-                  <h3 id="dashboardTitle">Admin dashboard</h3>
-                </div>
-                <button id="logoutBtn" class="logout-btn">Logout</button>
-              </div>
-
-              <div class="summary-grid" id="summaryGrid"></div>
-
-              <div class="activity-box">
-                <h4>Recent activity</h4>
-                <ul id="activityList"></ul>
-              </div>
-            </div>
-          </div>
-        </section>
+      <main id="dashboard" class="hidden">
+        <section class="welcome-row" id="overview"><div><p class="kicker">PERSONAL OVERVIEW</p><h1>Good morning, Harish <span>✦</span></h1><p class="muted">Here is your spending pulse for <strong id="monthLabel">August 2026</strong>.</p></div><label class="month-picker">Viewing month <input id="monthInput" type="month" value="2026-08" /></label></section>
+        <section class="metric-grid" aria-label="Monthly summary"><article class="metric-card total-card"><span class="metric-icon">∑</span><p>Total spent</p><strong id="totalSpent">$0.00</strong><small>This month</small></article><article class="metric-card"><span class="metric-icon green">↘</span><p>Daily average</p><strong id="dailyAverage">$0.00</strong><small id="daysTracked">0 days tracked</small></article><article class="metric-card"><span class="metric-icon amber">◎</span><p>Top category</p><strong id="topCategory">—</strong><small id="topCategoryAmount">No expenses yet</small></article><article class="metric-card"><span class="metric-icon coral">▦</span><p>Transactions</p><strong id="transactionCount">0</strong><small>Items recorded</small></article></section>
+        <section class="content-grid" id="insights"><article class="panel chart-panel"><div class="panel-heading"><div><p class="kicker">MONTHLY BREAKDOWN</p><h2>Where your money goes</h2></div><span class="chart-month" id="chartMonth">AUG</span></div><div class="chart-layout"><div class="pie-chart" id="pieChart" role="img" aria-label="Monthly expense breakdown"></div><div class="legend" id="legend"></div></div><div class="chart-footer"><span>Monthly total</span><strong id="chartTotal">$0.00</strong></div></article><article class="panel add-panel"><div class="panel-heading"><div><p class="kicker">QUICK ENTRY</p><h2>Add an expense</h2></div><span class="plus-mark">+</span></div><form id="expenseForm"><label>Description<input id="descriptionInput" type="text" placeholder="e.g. Morning coffee" required maxlength="50" /></label><div class="form-row"><label>Amount<div class="amount-field"><span>$</span><input id="amountInput" type="number" min="0.01" step="0.01" placeholder="0.00" required /></div></label><label>Date<input id="dateInput" type="date" required /></label></div><label>Category<select id="categoryInput"><option value="Food">Food</option><option value="Transport">Transport</option><option value="Shopping">Shopping</option><option value="Bills">Bills</option><option value="Health">Health</option><option value="Other">Other</option></select></label><button class="primary-button" type="submit"><span>+</span> Add expense</button></form></article></section>
+        <section class="panel transactions-panel" id="transactions"><div class="panel-heading transactions-heading"><div><p class="kicker">ACTIVITY</p><h2>Recent transactions</h2></div><span class="transaction-note" id="transactionNote">August 2026</span></div><div class="transaction-list" id="transactionList"></div></section>
       </main>
-
-      <footer class="footer">
-        <p>© 2026 Lifo Dress</p>
-        <p>Contact: hello@lifodress.store</p>
-      </footer>
+      <section id="loginView" class="login-view"><div class="login-copy"><p class="kicker">YOUR MONEY, IN FOCUS</p><h1>Make every day<br /><em>count.</em></h1><p>Day Mark turns the little daily purchases into a clear picture of your month.</p><div class="login-proof"><span>◒</span><span>Simple tracking. Better habits.</span></div></div><form class="login-card" id="loginForm"><span class="brand-mark large">D</span><p class="kicker">WELCOME BACK</p><h2>Sign in to Day Mark</h2><p class="muted">Your personal spending space is waiting.</p><label>Email address<input id="emailInput" type="email" value="mia@daymark.app" required /></label><label>Password<input id="passwordInput" type="password" value="daymark123" required /></label><button class="primary-button" type="submit">Open my dashboard <span>→</span></button><p class="demo-hint">Demo account: mia@daymark.app / daymark123</p></form></section>
+      <footer><span>© 2026 Day Mark</span><span>Private by design</span></footer>
     </div>
-
     <script src="app.js"></script>
   </body>
 </html>

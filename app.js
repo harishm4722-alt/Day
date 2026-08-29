@@ -1,241 +1,73 @@
-const users = {
-  admin: {
-    email: 'admin@velora.com',
-    password: 'admin123',
-    role: 'admin',
-    name: 'Alicia Singh',
-    dashboardTitle: 'Admin dashboard'
-  },
-  user: {
-    email: 'user@velora.com',
-    password: 'user123',
-    role: 'user',
-    name: 'Mia Johnson',
-    dashboardTitle: 'User dashboard'
-  },
-  delivery: {
-    email: 'delivery@velora.com',
-    password: 'delivery123',
-    role: 'delivery',
-    name: 'Rafael Chen',
-    dashboardTitle: 'Delivery dashboard'
-  }
-};
-
-const productCatalog = [
-  { name: 'Rosalyn Formal Gown', price: 129, oldPrice: 169, tag: 'Formal', accent: 'pink', category: 'Formal wear', collection: 'Formal collection' },
-  { name: 'Aurora Traditional Maxi', price: 98, oldPrice: 132, tag: 'Classic', accent: 'blue', category: 'Traditional', collection: 'Traditional collection' },
-  { name: 'Luna Satin Evening', price: 118, oldPrice: 150, tag: 'Popular', accent: 'pink', category: 'Formal wear', collection: 'Formal collection' },
-  { name: 'Noor Festive Kurta', price: 87, oldPrice: 112, tag: 'Hot', accent: 'blue', category: 'Traditional', collection: 'Traditional collection' },
-  { name: 'Sapphire Party Midi', price: 104, oldPrice: 138, tag: 'Best', accent: 'blue', category: 'Formal wear', collection: 'Party collection' },
-  { name: 'Blush Bridal Lehenga', price: 142, oldPrice: 178, tag: 'Luxury', accent: 'pink', category: 'Traditional', collection: 'Bridal collection' },
-  { name: 'Celeste Cocktail Dress', price: 115, oldPrice: 148, tag: 'Trend', accent: 'blue', category: 'Party wear', collection: 'Cocktail collection' },
-  { name: 'Ivory Evening Flare', price: 132, oldPrice: 170, tag: 'Elite', accent: 'pink', category: 'Evening wear', collection: 'Evening collection' },
-  { name: 'Aanya Summer Dress', price: 89, oldPrice: 120, tag: 'Fresh', accent: 'blue', category: 'Casual wear', collection: 'Summer collection' },
-  { name: 'Nadia Wedding Saree Gown', price: 156, oldPrice: 205, tag: 'Royal', accent: 'pink', category: 'Bridal wear', collection: 'Bridal collection' },
-  { name: 'Mira Ethnic Wrap', price: 96, oldPrice: 126, tag: 'Classic', accent: 'blue', category: 'Traditional', collection: 'Traditional collection' },
-  { name: 'Daphne Dinner Dress', price: 124, oldPrice: 162, tag: 'New', accent: 'pink', category: 'Formal wear', collection: 'Evening collection' }
+const demoUser = { email: 'mia@daymark.app', password: 'daymark123', name: 'Harish', initials: 'H' };
+const categoryColors = { Food: '#ff6f61', Transport: '#497cff', Shopping: '#f0a52b', Bills: '#00b881', Health: '#d65ac6', Other: '#7388a8' };
+const starterExpenses = [
+  { id: 1, description: 'Weekly groceries', amount: 84.2, category: 'Food', date: '2026-08-28' },
+  { id: 2, description: 'Electricity bill', amount: 62, category: 'Bills', date: '2026-08-26' },
+  { id: 3, description: 'Metro card top-up', amount: 25, category: 'Transport', date: '2026-08-24' },
+  { id: 4, description: 'New running shoes', amount: 96.5, category: 'Shopping', date: '2026-08-21' },
+  { id: 5, description: 'Lunch with Sam', amount: 31.75, category: 'Food', date: '2026-08-19' },
+  { id: 6, description: 'Pharmacy', amount: 18.4, category: 'Health', date: '2026-08-16' }
 ];
-
-const collections = [
-  { title: 'Formal collection', subtitle: 'Elegant office and evening essentials', group: 'Formal collection' },
-  { title: 'Traditional collection', subtitle: 'Classic heritage-inspired silhouettes', group: 'Traditional collection' },
-  { title: 'Party collection', subtitle: 'Statement looks for events and celebration', group: 'Party collection' },
-  { title: 'Bridal collection', subtitle: 'Luxury dresses for unforgettable moments', group: 'Bridal collection' },
-  { title: 'Cocktail collection', subtitle: 'Modern mini and flare silhouettes', group: 'Cocktail collection' },
-  { title: 'Evening collection', subtitle: 'Chic dresses for dinners and receptions', group: 'Evening collection' },
-  { title: 'Summer collection', subtitle: 'Light, breezy outfits for sunny days', group: 'Summer collection' }
-];
-
-const dashboardConfig = {
-  admin: {
-    summary: [
-      { label: 'Revenue', value: '$34.8K' },
-      { label: 'Orders', value: '1,248' },
-      { label: 'Returns', value: '18' }
-    ],
-    activity: [
-      ['New stock arrived', 'Today'],
-      ['High demand for bridal gowns', '2h ago'],
-      ['Delivery routing updated', 'This morning']
-    ]
-  },
-  user: {
-    summary: [
-      { label: 'Saved items', value: '12' },
-      { label: 'Orders', value: '4' },
-      { label: 'Points', value: '890' }
-    ],
-    activity: [
-      ['Pink satin dress added to cart', 'Just now'],
-      ['Order #V1842 shipped', 'Yesterday'],
-      ['Free delivery coupon unlocked', '3 days ago']
-    ]
-  },
-  delivery: {
-    summary: [
-      { label: 'Trips', value: '16' },
-      { label: 'On route', value: '5' },
-      { label: 'Earnings', value: '$620' }
-    ],
-    activity: [
-      ['Route to North Avenue updated', 'Just now'],
-      ['Parcel delivered to 24 Park Road', '1h ago'],
-      ['Pickup scheduled for 6:30 PM', 'Today']
-    ]
-  }
-};
-
-const roleButtons = document.querySelectorAll('.role-btn');
-const loginForm = document.getElementById('loginForm');
-const emailInput = document.getElementById('emailInput');
-const passwordInput = document.getElementById('passwordInput');
-const demoText = document.getElementById('demoText');
-const dashboardPanel = document.getElementById('dashboardPanel');
-const dashboardTitle = document.getElementById('dashboardTitle');
-const summaryGrid = document.getElementById('summaryGrid');
-const activityList = document.getElementById('activityList');
-const logoutBtn = document.getElementById('logoutBtn');
-const headerLoginBtn = document.getElementById('headerLoginBtn');
-const productGrid = document.getElementById('productGrid');
-const browseProductsBtn = document.getElementById('browseProductsBtn');
-
-let activeRole = 'admin';
-
-function renderProducts() {
-  productGrid.innerHTML = collections
-    .map(
-      (collection) => {
-        const items = productCatalog.filter((product) => product.collection === collection.group);
-
-        return `
-          <div class="collection-panel">
-            <div class="collection-header">
-              <div>
-                <p class="eyebrow small">Collection</p>
-                <h3>${collection.title}</h3>
-              </div>
-              <span>${collection.subtitle}</span>
-            </div>
-            <div class="collection-grid">
-              ${items
-                .map(
-                  (product) => `
-                    <article class="product-card">
-                      <div class="product-media" style="background: linear-gradient(135deg, ${product.accent === 'pink' ? '#ffe8f5' : '#e2f2ff'}, ${product.accent === 'pink' ? '#f8ddf1' : '#d9ebff'});">
-                        <span class="sale-tag">${product.tag}</span>
-                      </div>
-                      <div class="product-info">
-                        <div class="product-meta">
-                          <span>${product.category}</span>
-                          <span>In stock</span>
-                        </div>
-                        <h3>${product.name}</h3>
-                        <div class="product-price-row">
-                          <div>
-                            <span class="price">$${product.price}</span>
-                            <span class="old-price">$${product.oldPrice}</span>
-                          </div>
-                          <button class="add-btn" type="button">Add</button>
-                        </div>
-                      </div>
-                    </article>
-                  `
-                )
-                .join('')}
-            </div>
-          </div>
-        `;
-      }
-    )
-    .join('');
+let expenses = JSON.parse(localStorage.getItem('daymark-expenses')) || starterExpenses;
+let selectedMonth = '2026-08';
+const $ = (id) => document.getElementById(id);
+const money = (value) => `$${value.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+const monthName = (value, format = 'long') => new Date(`${value}-02T12:00:00`).toLocaleDateString('en-US', { month: format, year: 'numeric' });
+const monthExpenses = () => expenses.filter((expense) => expense.date.startsWith(selectedMonth));
+function render() {
+  const visible = monthExpenses();
+  const total = visible.reduce((sum, expense) => sum + expense.amount, 0);
+  const byCategory = visible.reduce((groups, expense) => ({ ...groups, [expense.category]: (groups[expense.category] || 0) + expense.amount }), {});
+  const categories = Object.entries(byCategory).sort((a, b) => b[1] - a[1]);
+  const days = new Set(visible.map((expense) => expense.date)).size;
+  const top = categories[0];
+  const monthText = monthName(selectedMonth);
+  $('monthLabel').textContent = monthText;
+  $('chartMonth').textContent = monthName(selectedMonth, 'short').split(' ')[0].toUpperCase();
+  $('transactionNote').textContent = monthText;
+  $('totalSpent').textContent = money(total);
+  $('dailyAverage').textContent = money(days ? total / days : 0);
+  $('daysTracked').textContent = `${days} day${days === 1 ? '' : 's'} tracked`;
+  $('topCategory').textContent = top ? top[0] : '—';
+  $('topCategoryAmount').textContent = top ? `${money(top[1])} this month` : 'No expenses yet';
+  $('transactionCount').textContent = visible.length;
+  $('chartTotal').textContent = money(total);
+  renderChart(categories, total);
+  renderTransactions(visible);
 }
-
-function setActiveRole(role) {
-  activeRole = role;
-  roleButtons.forEach((button) => {
-    const isActive = button.dataset.role === role;
-    button.classList.toggle('active', isActive);
+function renderChart(categories, total) {
+  const chart = $('pieChart');
+  if (!total) chart.style.background = '#e8eceb';
+  else {
+    let start = 0;
+    const segments = categories.map(([category, amount]) => { const end = start + (amount / total) * 100; const segment = `${categoryColors[category]} ${start}% ${end}%`; start = end; return segment; });
+    chart.style.background = `conic-gradient(${segments.join(', ')})`;
+  }
+  $('legend').innerHTML = categories.length ? categories.map(([category, amount]) => `<div class="legend-item"><span><i style="background:${categoryColors[category]}"></i>${category}</span><strong>${Math.round((amount / total) * 100)}%</strong></div>`).join('') : '<p class="empty-copy">No expenses recorded for this month.</p>';
+}
+function renderTransactions(visible) {
+  $('transactionList').innerHTML = visible.length ? [...visible].sort((a, b) => b.date.localeCompare(a.date)).map((expense) => `<div class="transaction"><span class="category-dot" style="background:${categoryColors[expense.category]}">${expense.category.slice(0, 1)}</span><div class="transaction-info"><strong>${expense.description}</strong><span>${expense.category} · ${new Date(`${expense.date}T12:00:00`).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span></div><strong class="transaction-amount">−${money(expense.amount)}</strong><button class="delete-button" data-id="${expense.id}" aria-label="Delete ${expense.description}" title="Delete expense">×</button></div>`).join('') : '<p class="empty-copy">Nothing logged for this month yet. Add your first expense above.</p>';
+  document.querySelectorAll('.delete-button').forEach((button) => button.addEventListener('click', () => { expenses = expenses.filter((expense) => expense.id !== Number(button.dataset.id)); persist(); render(); }));
+}
+function persist() { localStorage.setItem('daymark-expenses', JSON.stringify(expenses)); }
+function showDashboard() { $('loginView').classList.add('hidden'); $('dashboard').classList.remove('hidden'); render(); }
+$('loginForm').addEventListener('submit', (event) => { event.preventDefault(); if ($('emailInput').value.trim().toLowerCase() === demoUser.email && $('passwordInput').value === demoUser.password) showDashboard(); else alert('Please use the demo email and password shown below.'); });
+$('logoutBtn').addEventListener('click', () => { $('dashboard').classList.add('hidden'); $('loginView').classList.remove('hidden'); });
+$('monthInput').addEventListener('change', (event) => { selectedMonth = event.target.value || selectedMonth; render(); });
+$('expenseForm').addEventListener('submit', (event) => { event.preventDefault(); const date = $('dateInput').value; expenses.push({ id: Date.now(), description: $('descriptionInput').value.trim(), amount: Number($('amountInput').value), category: $('categoryInput').value, date }); selectedMonth = date.slice(0, 7); $('monthInput').value = selectedMonth; persist(); event.target.reset(); $('dateInput').value = date; render(); });
+$('dateInput').value = '2026-08-29';
+$('userName').textContent = demoUser.name;
+$('userAvatar').textContent = demoUser.initials;
+const savedProfilePhoto = localStorage.getItem('daymark-profile-photo');
+if (savedProfilePhoto) $('userAvatar').style.backgroundImage = `url(${savedProfilePhoto})`;
+$('profilePhotoInput').addEventListener('change', (event) => {
+  const [file] = event.target.files;
+  if (!file || !file.type.startsWith('image/')) return;
+  const reader = new FileReader();
+  reader.addEventListener('load', () => {
+    $('userAvatar').style.backgroundImage = `url(${reader.result})`;
+    $('userAvatar').textContent = '';
+    localStorage.setItem('daymark-profile-photo', reader.result);
   });
-
-  const selectedUser = users[role];
-  emailInput.value = selectedUser.email;
-  passwordInput.value = selectedUser.password;
-  demoText.textContent = `Demo ${role} login: ${selectedUser.email} / ${selectedUser.password}`;
-}
-
-function renderDashboard(role) {
-  const config = dashboardConfig[role];
-  dashboardTitle.textContent = users[role].dashboardTitle;
-
-  summaryGrid.innerHTML = config.summary
-    .map(
-      (item) => `
-        <div class="summary-card">
-          <span>${item.label}</span>
-          <strong>${item.value}</strong>
-        </div>
-      `
-    )
-    .join('');
-
-  activityList.innerHTML = config.activity
-    .map(
-      ([text, time]) => `
-        <li>
-          <span>${text}</span>
-          <strong>${time}</strong>
-        </li>
-      `
-    )
-    .join('');
-
-  dashboardPanel.classList.remove('hidden');
-}
-
-function hideDashboard() {
-  dashboardPanel.classList.add('hidden');
-}
-
-function handleLogin(event) {
-  event.preventDefault();
-
-  const enteredEmail = emailInput.value.trim().toLowerCase();
-  const enteredPassword = passwordInput.value.trim();
-
-  const matchedUser = Object.values(users).find(
-    (user) => user.email.toLowerCase() === enteredEmail && user.password === enteredPassword
-  );
-
-  if (!matchedUser) {
-    alert('Invalid login details. Please use the correct demo credentials for the selected role.');
-    return;
-  }
-
-  renderDashboard(matchedUser.role);
-  const dashboardHeading = document.getElementById('dashboardTitle');
-  dashboardHeading.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-}
-
-function logout() {
-  hideDashboard();
-  emailInput.value = users[activeRole].email;
-  passwordInput.value = users[activeRole].password;
-}
-
-roleButtons.forEach((button) => {
-  button.addEventListener('click', () => setActiveRole(button.dataset.role));
+  reader.readAsDataURL(file);
 });
-
-loginForm.addEventListener('submit', handleLogin);
-logoutBtn.addEventListener('click', logout);
-headerLoginBtn.addEventListener('click', () => {
-  document.getElementById('login').scrollIntoView({ behavior: 'smooth' });
-});
-browseProductsBtn.addEventListener('click', () => {
-  document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
-});
-
-renderProducts();
-setActiveRole(activeRole);
-hideDashboard();
